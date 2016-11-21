@@ -115,6 +115,11 @@ namespace yaesu
         {
             this.fileListView.ListViewItemSorter = new ListViewItemComparer(e.Column);
         }
+
+        private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
     class ListViewItemComparer : IComparer

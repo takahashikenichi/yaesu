@@ -55,13 +55,13 @@ namespace yaesu
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.folderListView = new System.Windows.Forms.ListView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.folderButton = new System.Windows.Forms.Button();
+            this.tagsButton = new System.Windows.Forms.Button();
             this.newNoteButton = new System.Windows.Forms.Button();
             this.fileListView = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.iconImageList = new System.Windows.Forms.ImageList(this.components);
-            this.tagsButton = new System.Windows.Forms.Button();
-            this.folderButton = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -136,31 +136,32 @@ namespace yaesu
             // 新規NToolStripMenuItem
             // 
             this.新規NToolStripMenuItem.Name = "新規NToolStripMenuItem";
-            this.新規NToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.新規NToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.新規NToolStripMenuItem.Text = "新規(&N)";
             // 
             // 開くOToolStripMenuItem
             // 
             this.開くOToolStripMenuItem.Name = "開くOToolStripMenuItem";
-            this.開くOToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.開くOToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.開くOToolStripMenuItem.Text = "開く&O)";
             // 
             // 保存SToolStripMenuItem
             // 
             this.保存SToolStripMenuItem.Name = "保存SToolStripMenuItem";
-            this.保存SToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.保存SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.保存SToolStripMenuItem.Text = "保存(&S)";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(112, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // 終了XToolStripMenuItem
             // 
             this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-            this.終了XToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.終了XToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.終了XToolStripMenuItem.Text = "終了(X)";
+            this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
             // 
             // 編集EToolStripMenuItem
             // 
@@ -316,6 +317,44 @@ namespace yaesu
             this.folderListView.UseCompatibleStateImageBehavior = false;
             this.folderListView.View = System.Windows.Forms.View.List;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.folderButton);
+            this.panel1.Controls.Add(this.tagsButton);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(194, 33);
+            this.panel1.TabIndex = 6;
+            // 
+            // folderButton
+            // 
+            this.folderButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.folderButton.BackColor = System.Drawing.SystemColors.Control;
+            this.folderButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.folderButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.folderButton.Location = new System.Drawing.Point(19, 2);
+            this.folderButton.Name = "folderButton";
+            this.folderButton.Size = new System.Drawing.Size(75, 28);
+            this.folderButton.TabIndex = 4;
+            this.folderButton.Text = "Folder";
+            this.folderButton.UseVisualStyleBackColor = false;
+            // 
+            // tagsButton
+            // 
+            this.tagsButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tagsButton.BackColor = System.Drawing.SystemColors.Control;
+            this.tagsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.tagsButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tagsButton.Location = new System.Drawing.Point(100, 2);
+            this.tagsButton.Name = "tagsButton";
+            this.tagsButton.Size = new System.Drawing.Size(75, 28);
+            this.tagsButton.TabIndex = 5;
+            this.tagsButton.Text = "Tags";
+            this.tagsButton.UseVisualStyleBackColor = false;
+            // 
             // newNoteButton
             // 
             this.newNoteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -342,8 +381,7 @@ namespace yaesu
             this.fileListView.TabIndex = 0;
             this.fileListView.UseCompatibleStateImageBehavior = false;
             this.fileListView.View = System.Windows.Forms.View.List;
-            this.fileListView.ColumnClick += new ColumnClickEventHandler(ColumnClick);
-
+            this.fileListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ColumnClick);
             // 
             // contextMenuStrip1
             // 
@@ -355,44 +393,6 @@ namespace yaesu
             this.iconImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.iconImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // tagsButton
-            // 
-            this.tagsButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tagsButton.BackColor = System.Drawing.SystemColors.Control;
-            this.tagsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.tagsButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tagsButton.Location = new System.Drawing.Point(100, 2);
-            this.tagsButton.Name = "tagsButton";
-            this.tagsButton.Size = new System.Drawing.Size(75, 28);
-            this.tagsButton.TabIndex = 5;
-            this.tagsButton.Text = "Tags";
-            this.tagsButton.UseVisualStyleBackColor = false;
-            // 
-            // folderButton
-            // 
-            this.folderButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.folderButton.BackColor = System.Drawing.SystemColors.Control;
-            this.folderButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.folderButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.folderButton.Location = new System.Drawing.Point(19, 2);
-            this.folderButton.Name = "folderButton";
-            this.folderButton.Size = new System.Drawing.Size(75, 28);
-            this.folderButton.TabIndex = 4;
-            this.folderButton.Text = "Folder";
-            this.folderButton.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.folderButton);
-            this.panel1.Controls.Add(this.tagsButton);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(194, 33);
-            this.panel1.TabIndex = 6;
             // 
             // BaseForm
             // 
