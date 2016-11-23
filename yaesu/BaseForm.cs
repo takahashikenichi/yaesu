@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace yaesu
     public partial class BaseForm : Form
     {
         public static readonly String SEARCH_WATERMARK = "マークダウンノートを検索";
+        private LocalFileSystem localFileSystem;
+        private FileInfo fileInfo; // ローカルファイルシステム
 
         public BaseForm()
         {
@@ -48,10 +51,10 @@ namespace yaesu
             fileListView.Items.Add(new ListViewItem(row_3));
             fileListView.Items.Add(new ListViewItem(row_4));
 
-            // ListBoxにファイル一覧を入れる
-            LocalFileSystem localFileSystem = new LocalFileSystem();
+            // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
+            localFileSystem = new LocalFileSystem(@"C:\Users\Kenichi Takahashi\Desktop\yaesu");
 
-            fileListView = localFileSystem.setListViewFromFiles(fileListView, "");
+            fileListView = localFileSystem.setListViewFromFiles(fileListView);
 
         }
 
@@ -119,6 +122,48 @@ namespace yaesu
         private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void fileListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idx = 0;
+            String fileName = "";
+            if (fileListView.SelectedItems.Count > 0)
+            {
+                // ファイル名を取得する
+                fileName = fileListView.SelectedItems[0].Text;
+
+                // ファイル情報を取得する
+                fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+
+                // ファイル情報からファイルを開き、全文を読み込む
+                StreamReader sr = fileInfo.OpenText();
+                editRichTextBox.Text = sr.ReadToEnd();
+
+                /*
+                MessageBox.Show(
+                    fileName,
+                    // (idx + 1).ToString() + "番目が選択されました。",
+                    "選択されたインデックス",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None
+                );
+                */
+                sr.Close();
+            }
+
+        }
+
+        private void 保存SToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(fileInfo != null)
+            {
+                StreamWriter sw = fileInfo.CreateText();
+
+                // ファイルに書き込む
+                sw.Write(editRichTextBox.Text);
+                sw.Close();
+            }
         }
     }
 

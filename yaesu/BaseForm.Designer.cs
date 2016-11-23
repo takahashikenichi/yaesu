@@ -148,8 +148,10 @@ namespace yaesu
             // 保存SToolStripMenuItem
             // 
             this.保存SToolStripMenuItem.Name = "保存SToolStripMenuItem";
+            this.保存SToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.保存SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.保存SToolStripMenuItem.Text = "保存(&S)";
+            this.保存SToolStripMenuItem.Click += new System.EventHandler(this.保存SToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -382,6 +384,7 @@ namespace yaesu
             this.fileListView.UseCompatibleStateImageBehavior = false;
             this.fileListView.View = System.Windows.Forms.View.List;
             this.fileListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ColumnClick);
+            this.fileListView.SelectedIndexChanged += new System.EventHandler(this.fileListView_SelectedIndexChanged);
             // 
             // contextMenuStrip1
             // 
