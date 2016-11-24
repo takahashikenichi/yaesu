@@ -33,6 +33,7 @@ namespace yaesu
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.searchTextBox = new System.Windows.Forms.TextBox();
@@ -42,6 +43,8 @@ namespace yaesu
             this.開くOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.オプションOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.表示VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,6 +131,8 @@ namespace yaesu
             this.開くOToolStripMenuItem,
             this.保存SToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.オプションOToolStripMenuItem,
+            this.toolStripMenuItem2,
             this.終了XToolStripMenuItem});
             this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
             this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
@@ -136,32 +141,44 @@ namespace yaesu
             // 新規NToolStripMenuItem
             // 
             this.新規NToolStripMenuItem.Name = "新規NToolStripMenuItem";
-            this.新規NToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.新規NToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.新規NToolStripMenuItem.Text = "新規(&N)";
             // 
             // 開くOToolStripMenuItem
             // 
             this.開くOToolStripMenuItem.Name = "開くOToolStripMenuItem";
-            this.開くOToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.開くOToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.開くOToolStripMenuItem.Text = "開く&O)";
             // 
             // 保存SToolStripMenuItem
             // 
             this.保存SToolStripMenuItem.Name = "保存SToolStripMenuItem";
             this.保存SToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.保存SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.保存SToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.保存SToolStripMenuItem.Text = "保存(&S)";
             this.保存SToolStripMenuItem.Click += new System.EventHandler(this.保存SToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(148, 6);
+            // 
+            // オプションOToolStripMenuItem
+            // 
+            this.オプションOToolStripMenuItem.Name = "オプションOToolStripMenuItem";
+            this.オプションOToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.オプションOToolStripMenuItem.Text = "オプション(&O)";
+            this.オプションOToolStripMenuItem.Click += new System.EventHandler(this.オプションOToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(148, 6);
             // 
             // 終了XToolStripMenuItem
             // 
             this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-            this.終了XToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.終了XToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.終了XToolStripMenuItem.Text = "終了(X)";
             this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
             // 
@@ -405,9 +422,13 @@ namespace yaesu
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::yaesu.Properties.Settings.Default, "BaseFormLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = global::yaesu.Properties.Settings.Default.BaseFormLocation;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BaseForm";
             this.Text = "Yaesu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BaseForm_FormClosing);
             this.Load += new System.EventHandler(this.BaseForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -466,6 +487,8 @@ namespace yaesu
         private System.Windows.Forms.Button tagsButton;
         private System.Windows.Forms.Button folderButton;
         private System.Windows.Forms.Panel panel1;
+        private ToolStripMenuItem オプションOToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem2;
     }
 
 }

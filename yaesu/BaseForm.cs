@@ -40,6 +40,7 @@ namespace yaesu
             column.Width = -1;
             fileListView.Columns.Add(column);
 
+            /*
             // リスト項目の設定
             string[] row_1 = { "123" };
             string[] row_2 = { "234" };
@@ -50,12 +51,31 @@ namespace yaesu
             fileListView.Items.Add(new ListViewItem(row_2));
             fileListView.Items.Add(new ListViewItem(row_3));
             fileListView.Items.Add(new ListViewItem(row_4));
+            */
 
             // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
-            localFileSystem = new LocalFileSystem(@"C:\Users\Kenichi Takahashi\Desktop\yaesu");
+            if (Properties.Settings.Default.DefaultFolderPath != "")
+            {
+                localFileSystem = new LocalFileSystem(Properties.Settings.Default.DefaultFolderPath);
 
-            fileListView = localFileSystem.setListViewFromFiles(fileListView);
+                fileListView = localFileSystem.setListViewFromFiles(fileListView);
 
+                if (Properties.Settings.Default.OpendFilePath != "")
+                {
+                    // ファイル情報を取得する
+                    fileInfo = localFileSystem.getFileInfoFromListView(fileListView, Properties.Settings.Default.OpendFilePath);
+
+                    // ファイル情報からファイルを開き、全文を読み込む
+                    StreamReader sr = fileInfo.OpenText();
+                    editRichTextBox.Text = sr.ReadToEnd();
+
+                    sr.Close();
+                }
+
+            }
+
+            // サイズを読み込みリサイズ
+            this.ClientSize = Properties.Settings.Default.MyClientSize;
         }
 
         private void 開くOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,6 +170,8 @@ namespace yaesu
                 );
                 */
                 sr.Close();
+
+                Properties.Settings.Default.OpendFilePath = fileName;
             }
 
         }
@@ -164,6 +186,45 @@ namespace yaesu
                 sw.Write(editRichTextBox.Text);
                 sw.Close();
             }
+        }
+
+        private void オプションOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //FolderBrowserDialogクラスのインスタンスを作成
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            //上部に表示する説明テキストを指定する
+            fbd.Description = "フォルダを指定してください。";
+            //ルートフォルダを指定する
+            //デフォルトでDesktop
+            fbd.RootFolder = Environment.SpecialFolder.Desktop;
+            //最初に選択するフォルダを指定する
+            //RootFolder以下にあるフォルダである必要がある
+
+            fbd.SelectedPath = Properties.Settings.Default.DefaultFolderPath;
+            //ユーザーが新しいフォルダを作成できるようにする
+            //デフォルトでTrue
+            fbd.ShowNewFolderButton = true;
+
+            //ダイアログを表示する
+            if (fbd.ShowDialog(this) == DialogResult.OK)
+            {
+                //選択されたフォルダを表示する
+                Console.WriteLine(fbd.SelectedPath);
+                Properties.Settings.Default.DefaultFolderPath = fbd.SelectedPath;
+
+                // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
+                localFileSystem = new LocalFileSystem(fbd.SelectedPath);
+                fileListView.Clear();
+                fileListView = localFileSystem.setListViewFromFiles(fileListView);
+
+            }
+        }
+
+        private void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.MyClientSize = this.ClientSize;
+            Properties.Settings.Default.Save();
         }
     }
 
