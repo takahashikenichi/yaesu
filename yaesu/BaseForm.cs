@@ -28,6 +28,10 @@ namespace yaesu
             searchTextBox.Text = SEARCH_WATERMARK;
             this.searchTextBox.Leave += new System.EventHandler(this.searchTextBox_Leave);
             this.searchTextBox.Enter += new System.EventHandler(this.searchTextBox_Enter);
+
+            // editRichTextBoxの行間を詰めて、フォントを合わせる
+            editRichTextBox.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
+
         }
 
         private void BaseForm_Load(object sender, EventArgs e)

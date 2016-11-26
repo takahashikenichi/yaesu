@@ -54,7 +54,6 @@ namespace yaesu
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Label_Created = new System.Windows.Forms.Label();
             this.Label_Updated = new System.Windows.Forms.Label();
-            this.editRichTextBox = new System.Windows.Forms.RichTextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.folderListView = new System.Windows.Forms.ListView();
@@ -65,6 +64,7 @@ namespace yaesu
             this.fileListView = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.iconImageList = new System.Windows.Forms.ImageList(this.components);
+            this.editRichTextBox = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -264,21 +264,6 @@ namespace yaesu
             this.Label_Updated.TabIndex = 1;
             this.Label_Updated.Text = "Updated:";
             // 
-            // editRichTextBox
-            // 
-            this.editRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.editRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.editRichTextBox.Font = new System.Drawing.Font("メイリオ", 9F);
-            this.editRichTextBox.Location = new System.Drawing.Point(0, 59);
-            this.editRichTextBox.Name = "editRichTextBox";
-            this.editRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.editRichTextBox.Size = new System.Drawing.Size(338, 650);
-            this.editRichTextBox.TabIndex = 0;
-            this.editRichTextBox.Text = "";
-            this.editRichTextBox.TextChanged += new System.EventHandler(this.editRichTextBox_TextChanged);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -414,6 +399,21 @@ namespace yaesu
             this.iconImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // editRichTextBox
+            // 
+            this.editRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.editRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.editRichTextBox.Font = new System.Drawing.Font("メイリオ", 9F);
+            this.editRichTextBox.Location = new System.Drawing.Point(0, 59);
+            this.editRichTextBox.Name = "editRichTextBox";
+            this.editRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.editRichTextBox.Size = new System.Drawing.Size(338, 650);
+            this.editRichTextBox.TabIndex = 0;
+            this.editRichTextBox.Text = "";
+            this.editRichTextBox.TextChanged += new System.EventHandler(this.editRichTextBox_TextChanged);
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -477,7 +477,6 @@ namespace yaesu
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.ListView fileListView;
-        private System.Windows.Forms.RichTextBox editRichTextBox;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label Label_Updated;
         private System.Windows.Forms.Label Label_Created;
@@ -489,6 +488,7 @@ namespace yaesu
         private System.Windows.Forms.Panel panel1;
         private ToolStripMenuItem オプションOToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem2;
+        private RichTextBox editRichTextBox;
     }
 
 }

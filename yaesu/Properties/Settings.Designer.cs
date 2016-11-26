@@ -73,7 +73,7 @@ namespace yaesu.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("640, 400")]
         public global::System.Drawing.Size MyClientSize {
             get {
                 return ((global::System.Drawing.Size)(this["MyClientSize"]));
