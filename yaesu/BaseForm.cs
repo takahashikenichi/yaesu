@@ -15,7 +15,7 @@ namespace yaesu
 
     public partial class BaseForm : Form
     {
-        public static readonly String SEARCH_WATERMARK = "マークダウンノートを検索";
+        public static readonly String SEARCH_WATERMARK = "検索";
         private LocalFileSystem localFileSystem;
         private FileInfo fileInfo; // ローカルファイルシステム
 
@@ -36,26 +36,11 @@ namespace yaesu
 
         private void BaseForm_Load(object sender, EventArgs e)
         {
-            // 
-
             // ListViewコントロールの設定
             var column = new ColumnHeader();
             column.Text = "ファイル";
             column.Width = -1;
             fileListView.Columns.Add(column);
-
-            /*
-            // リスト項目の設定
-            string[] row_1 = { "123" };
-            string[] row_2 = { "234" };
-            string[] row_3 = { "567" };
-            string[] row_4 = { "890" };
-
-            fileListView.Items.Add(new ListViewItem(row_1));
-            fileListView.Items.Add(new ListViewItem(row_2));
-            fileListView.Items.Add(new ListViewItem(row_3));
-            fileListView.Items.Add(new ListViewItem(row_4));
-            */
 
             // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
             if (Properties.Settings.Default.DefaultFolderPath != "")
@@ -68,18 +53,25 @@ namespace yaesu
                 {
                     // ファイル情報を取得する
                     fileInfo = localFileSystem.getFileInfoFromListView(fileListView, Properties.Settings.Default.OpendFilePath);
-
-                    // ファイル情報からファイルを開き、全文を読み込む
-                    StreamReader sr = fileInfo.OpenText();
-                    editRichTextBox.Text = sr.ReadToEnd();
-
-                    sr.Close();
                 }
-
             }
 
             // サイズを読み込みリサイズ
             this.ClientSize = Properties.Settings.Default.MyClientSize;
+
+            explorerTreeView.UIInit();
+        }
+
+        private void setFileToRichTextBox(FileInfo fileInfo)
+        {
+            // ファイル情報からファイルを開き、全文を読み込む
+            StreamReader sr = fileInfo.OpenText();
+            editRichTextBox.Text = sr.ReadToEnd();
+
+            sr.Close();
+
+            Label_Created.Text ="Modified: " + fileInfo.LastWriteTime.ToString();
+            updateIndicaterLavel.Visible = false;
         }
 
         private void 開くOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,6 +110,7 @@ namespace yaesu
         private void editRichTextBox_TextChanged(object sender, EventArgs e)
         {
             markdownBrowser.DocumentText = CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text);
+            updateIndicaterLavel.Visible = true;
         }
 
         private void searchTextBox_Leave(object sender, EventArgs e)
@@ -160,22 +153,7 @@ namespace yaesu
                 // ファイル情報を取得する
                 fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
 
-                // ファイル情報からファイルを開き、全文を読み込む
-                StreamReader sr = fileInfo.OpenText();
-                editRichTextBox.Text = sr.ReadToEnd();
-
-                /*
-                MessageBox.Show(
-                    fileName,
-                    // (idx + 1).ToString() + "番目が選択されました。",
-                    "選択されたインデックス",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.None
-                );
-                */
-                sr.Close();
-
-                Properties.Settings.Default.OpendFilePath = fileName;
+                setFileToRichTextBox(fileInfo);
             }
 
         }
@@ -190,6 +168,8 @@ namespace yaesu
                 sw.Write(editRichTextBox.Text);
                 sw.Close();
             }
+
+            updateIndicaterLavel.Visible = false;
         }
 
         private void オプションOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -229,6 +209,34 @@ namespace yaesu
         {
             Properties.Settings.Default.MyClientSize = this.ClientSize;
             Properties.Settings.Default.Save();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = false;
+            splitContainer1.Panel2Collapsed = true;
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = false;
+            splitContainer1.Panel2Collapsed = false;
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = true;
+            splitContainer1.Panel2Collapsed = false;
+        }
+
+        private void explorerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            MessageBox.Show(explorerTreeView.SelectedNode.FullPath);
+/*
+            // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
+            localFileSystem = new LocalFileSystem(explorerTreeView.SelectedNode.FullPath);
+            fileListView.Clear();
+            fileListView = localFileSystem.setListViewFromFiles(fileListView);*/
         }
     }
 
