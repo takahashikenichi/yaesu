@@ -57,19 +57,19 @@ namespace yaesu
             this.editRichTextBox = new System.Windows.Forms.RichTextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.explorerTreeView = new ShellNamespace.ExplorerTreeView(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.newNoteButton = new System.Windows.Forms.Button();
             this.fileListView = new System.Windows.Forms.ListView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.iconImageList = new System.Windows.Forms.ImageList(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.explorerTreeView = new ShellNamespace.ExplorerTreeView(this.components);
+            this.newNoteButton = new System.Windows.Forms.Button();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -90,6 +90,8 @@ namespace yaesu
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 739);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1184, 22);
@@ -116,6 +118,12 @@ namespace yaesu
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルFToolStripMenuItem,
+            this.編集EToolStripMenuItem,
+            this.表示VToolStripMenuItem,
+            this.ツールTToolStripMenuItem,
+            this.ヘルプHToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
@@ -323,19 +331,6 @@ namespace yaesu
             this.splitContainer3.SplitterDistance = 200;
             this.splitContainer3.TabIndex = 3;
             // 
-            // explorerTreeView
-            // 
-            this.explorerTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.explorerTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.explorerTreeView.LinkedExplorerListView = null;
-            this.explorerTreeView.Location = new System.Drawing.Point(0, 37);
-            this.explorerTreeView.Name = "explorerTreeView";
-            this.explorerTreeView.Size = new System.Drawing.Size(201, 672);
-            this.explorerTreeView.TabIndex = 7;
-            this.explorerTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.explorerTreeView_AfterSelect);
-            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -378,19 +373,6 @@ namespace yaesu
             this.radioButton5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton5.UseVisualStyleBackColor = true;
             // 
-            // newNoteButton
-            // 
-            this.newNoteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.newNoteButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.newNoteButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.newNoteButton.Image = global::yaesu.Properties.Resources.doc_new_icon_16;
-            this.newNoteButton.Location = new System.Drawing.Point(3, 5);
-            this.newNoteButton.Name = "newNoteButton";
-            this.newNoteButton.Size = new System.Drawing.Size(30, 28);
-            this.newNoteButton.TabIndex = 3;
-            this.newNoteButton.UseVisualStyleBackColor = true;
-            this.newNoteButton.Click += new System.EventHandler(this.newNoteButton_Click);
-            // 
             // fileListView
             // 
             this.fileListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -419,6 +401,42 @@ namespace yaesu
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(694, 35);
             this.panel2.TabIndex = 8;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // iconImageList
+            // 
+            this.iconImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.iconImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // explorerTreeView
+            // 
+            this.explorerTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.explorerTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.explorerTreeView.LinkedExplorerListView = null;
+            this.explorerTreeView.Location = new System.Drawing.Point(0, 37);
+            this.explorerTreeView.Name = "explorerTreeView";
+            this.explorerTreeView.Size = new System.Drawing.Size(201, 672);
+            this.explorerTreeView.TabIndex = 7;
+            this.explorerTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.explorerTreeView_AfterSelect);
+            // 
+            // newNoteButton
+            // 
+            this.newNoteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newNoteButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.newNoteButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.newNoteButton.Image = global::yaesu.Properties.Resources.doc_new_icon_16;
+            this.newNoteButton.Location = new System.Drawing.Point(3, 5);
+            this.newNoteButton.Name = "newNoteButton";
+            this.newNoteButton.Size = new System.Drawing.Size(30, 28);
+            this.newNoteButton.TabIndex = 3;
+            this.newNoteButton.UseVisualStyleBackColor = true;
             // 
             // radioButton3
             // 
@@ -463,17 +481,6 @@ namespace yaesu
             this.radioButton1.TabIndex = 8;
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // iconImageList
-            // 
-            this.iconImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.iconImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // BaseForm
             // 
