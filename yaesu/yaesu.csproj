@@ -53,6 +53,9 @@
       <HintPath>..\packages\CommonMark.NET.0.14.0\lib\net45\CommonMark.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -129,6 +132,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VSO_AddButton_lightGrey_26x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil_icon&amp;16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_edit_icon&amp;16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globe_2_icon&amp;16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globe_3_icon&amp;16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_new_icon&amp;16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about.html.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

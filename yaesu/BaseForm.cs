@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mshtml;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +13,13 @@ using System.Windows.Forms;
 
 namespace yaesu
 {
-
     public partial class BaseForm : Form
     {
         public static readonly String SEARCH_WATERMARK = "検索";
         private LocalFileSystem localFileSystem;
         private FileInfo fileInfo; // ローカルファイルシステム
+        Point scrollpos;
+        Boolean isOpenNewFile = false;
 
         public BaseForm()
         {
@@ -65,6 +67,7 @@ namespace yaesu
         private void setFileToRichTextBox(FileInfo fileInfo)
         {
             // ファイル情報からファイルを開き、全文を読み込む
+            isOpenNewFile = true;
             StreamReader sr = fileInfo.OpenText();
             editRichTextBox.Text = sr.ReadToEnd();
 
@@ -85,7 +88,7 @@ namespace yaesu
 
         private void markdownBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-
+            markdownBrowser.Document.Window.ScrollTo(scrollpos);
         }
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
@@ -109,8 +112,23 @@ namespace yaesu
 
         private void editRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            markdownBrowser.DocumentText = CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text);
+            // 現在のスクロール位置を取得
+            if(markdownBrowser.Document != null && !isOpenNewFile)
+            {
+                IHTMLDocument3 doc3 = (IHTMLDocument3)markdownBrowser.Document.DomDocument;
+                IHTMLElement2 elm = (IHTMLElement2)doc3.documentElement;
+                scrollpos = new Point(elm.scrollLeft, elm.scrollTop);
+            } else
+            {
+                scrollpos = new Point(0, 0);
+            }
+            isOpenNewFile = false;
+
+            //指定されたマニフェストリソースを読み込む
+            markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+
             updateIndicaterLavel.Visible = true;
+
         }
 
         private void searchTextBox_Leave(object sender, EventArgs e)
@@ -145,17 +163,71 @@ namespace yaesu
         {
             int idx = 0;
             String fileName = "";
+
             if (fileListView.SelectedItems.Count > 0)
             {
-                // ファイル名を取得する
-                fileName = fileListView.SelectedItems[0].Text;
+                if (updateIndicaterLavel.Visible == true)
+                {
+                    // ファイルに変更がある
+                    // メッセージボックスを表示する
+                    DialogResult result = MessageBox.Show("ファイルを上書きしますか？",
+                        "質問",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button2);
 
-                // ファイル情報を取得する
-                fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+                    //何が選択されたか調べる
+                    if (result == DialogResult.Yes)
+                    {
+                        //「はい」が選択された時
+                        StreamWriter sw = fileInfo.CreateText();
 
-                setFileToRichTextBox(fileInfo);
+                        // ファイルに書き込む
+                        sw.Write(editRichTextBox.Text);
+                        sw.Close();
+
+                        updateIndicaterLavel.Visible = false;
+
+                        // ファイル名を取得する
+                        fileName = fileListView.SelectedItems[0].Text;
+
+                        // ファイル情報を取得する
+                        fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+
+                        setFileToRichTextBox(fileInfo);
+                    }
+
+                    else if (result == DialogResult.No)
+                    {
+                        //「いいえ」が選択された時
+                        if (fileListView.SelectedItems.Count > 0)
+                        {
+                            // ファイル名を取得する
+                            fileName = fileListView.SelectedItems[0].Text;
+
+                           // ファイル情報を取得する
+                            fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+
+                            setFileToRichTextBox(fileInfo);
+                        }
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        //「キャンセル」が選択された時 なにもしない
+                    }
+                }
+                else
+                {
+                    // ファイルに変更がない場合
+                    // ファイル名を取得する
+                    fileName = fileListView.SelectedItems[0].Text;
+
+                    // ファイル情報を取得する
+                    fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+
+                    setFileToRichTextBox(fileInfo);
+                }
             }
-
         }
 
         private void 保存SToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,13 +235,12 @@ namespace yaesu
             if(fileInfo != null)
             {
                 StreamWriter sw = fileInfo.CreateText();
-
                 // ファイルに書き込む
                 sw.Write(editRichTextBox.Text);
                 sw.Close();
-            }
 
-            updateIndicaterLavel.Visible = false;
+                updateIndicaterLavel.Visible = false;
+            }
         }
 
         private void オプションOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -232,11 +303,42 @@ namespace yaesu
         private void explorerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             MessageBox.Show(explorerTreeView.SelectedNode.FullPath);
-/*
-            // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
-            localFileSystem = new LocalFileSystem(explorerTreeView.SelectedNode.FullPath);
-            fileListView.Clear();
-            fileListView = localFileSystem.setListViewFromFiles(fileListView);*/
+            /*
+                        // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
+                        localFileSystem = new LocalFileSystem(explorerTreeView.SelectedNode.FullPath);
+                        fileListView.Clear();
+                        fileListView = localFileSystem.setListViewFromFiles(fileListView);*/
+        }
+
+        private void checkToUserBeforeClose()
+        {
+            if (updateIndicaterLavel.Visible == true)
+            {
+                // ファイルに変更がある
+                //メッセージボックスを表示する
+                DialogResult result = MessageBox.Show("ファイルを上書きしますか？",
+                    "質問",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2);
+
+                //何が選択されたか調べる
+                if (result == DialogResult.Yes)
+                {
+                    //「はい」が選択された時
+                    Console.WriteLine("「はい」が選択されました");
+                }
+                else if (result == DialogResult.No)
+                {
+                    //「いいえ」が選択された時
+                    Console.WriteLine("「いいえ」が選択されました");
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    //「キャンセル」が選択された時
+                    Console.WriteLine("「キャンセル」が選択されました");
+                }
+            }
         }
     }
 

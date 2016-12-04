@@ -61,6 +61,112 @@ namespace yaesu.Properties {
         }
         
         /// <summary>
+        ///   &lt;!DOCTYPE HTML&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///   &lt;title&gt;&lt;/title&gt;
+        ///   &lt;style type=&quot;text/css&quot;&gt;
+        ///      div
+        ///      {
+        ///         padding: 10px;
+        ///         background-color: Blue;
+        ///         border: 1px solid black;
+        ///         border-radius: 30px;
+        ///         width: 800px;
+        ///         box-shadow: 10px 10px 50px red;
+        ///      }
+        ///   &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///   &lt;p&gt;
+        ///      Before&lt;/p&gt;
+        ///   &lt;div&gt;
+        ///      &lt;p&gt;
+        ///         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ipsum eget nibh gravida porta. Morbi vitae felis risus [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string about {
+            get {
+                return ResourceManager.GetString("about", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_edit_icon_16 {
+            get {
+                object obj = ResourceManager.GetObject("doc_edit_icon&16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap doc_new_icon_16 {
+            get {
+                object obj = ResourceManager.GetObject("doc_new_icon&16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap globe_2_icon_16 {
+            get {
+                object obj = ResourceManager.GetObject("globe_2_icon&16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap globe_3_icon_16 {
+            get {
+                object obj = ResourceManager.GetObject("globe_3_icon&16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;/body&gt;
+        ///&lt;/html&gt; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string htmlFooter {
+            get {
+                return ResourceManager.GetString("htmlFooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///  &lt;head&gt;
+        ///      &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///      &lt;title&gt;&lt;/title&gt;
+        ///      &lt;style&gt;.markdown-preview:not([data-use-github-style]) { padding: 2em; font-size: 1.2em; color: rgb(56, 58, 66); overflow: auto; background-color: rgb(250, 250, 250); }
+        ///.markdown-preview:not([data-use-github-style]) &gt; :first-child { margin-top: 0px; }
+        ///.markdown-preview:not([data-use-github-style]) h1, .markdown-preview:not([data-use-github-style]) h2, .markdown-preview:not([data-use-github-style]) h3, .markdown- [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string htmlHeder {
+            get {
+                return ResourceManager.GetString("htmlHeder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap pencil_icon_16 {
+            get {
+                object obj = ResourceManager.GetObject("pencil_icon&16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap Search_32x {
