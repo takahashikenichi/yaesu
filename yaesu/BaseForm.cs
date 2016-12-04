@@ -340,6 +340,47 @@ namespace yaesu
                 }
             }
         }
+
+        private void newNoteButton_Click(object sender, EventArgs e)
+        {
+            //SaveFileDialogクラスのインスタンスを作成
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            //はじめのファイル名を指定する
+            //はじめに「ファイル名」で表示される文字列を指定する
+            sfd.FileName = "新しいファイル.md";
+            //はじめに表示されるフォルダを指定する            
+            sfd.InitialDirectory = localFileSystem.getFolderPath();
+            //[ファイルの種類]に表示される選択肢を指定する
+            //指定しない（空の文字列）の時は、現在のディレクトリが表示される
+            sfd.Filter = "MDファイル(*.md)|*.md|すべてのファイル(*.*)|*.*";
+            //[ファイルの種類]ではじめに選択されるものを指定する
+            //2番目の「すべてのファイル」が選択されているようにする
+            sfd.FilterIndex = 1;
+            //タイトルを設定する
+            sfd.Title = "保存先のファイルを選択してください";
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            sfd.RestoreDirectory = true;
+            //既に存在するファイル名を指定したとき警告する
+            //デフォルトでTrueなので指定する必要はない
+            sfd.OverwritePrompt = true;
+            //存在しないパスが指定されたとき警告を表示する
+            //デフォルトでTrueなので指定する必要はない
+            sfd.CheckPathExists = true;
+
+            //ダイアログを表示する
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                // OKボタンがクリックされたとき
+                using (FileStream fs = File.Create(sfd.FileName))
+                {
+                    // ファイルストリームを閉じて、変更を確定させる
+                    // 呼ばなくても using を抜けた時点で Dispose メソッドが呼び出される
+                    fs.Close();
+                }
+                fileListView = localFileSystem.setListViewFromFiles(fileListView);
+            }
+        }
     }
 
     class ListViewItemComparer : IComparer

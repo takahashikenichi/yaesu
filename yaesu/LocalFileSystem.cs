@@ -21,6 +21,8 @@ namespace yaesu
 
         public ListView setListViewFromFiles(ListView listView)
         {
+            listView.Clear();
+
             //"C:\test"以下のファイルをすべて取得する
 //            di = new DirectoryInfo(@"C:\Users\Kenichi Takahashi\Desktop\yaesu");
             files = di.EnumerateFiles("*", System.IO.SearchOption.AllDirectories);
@@ -49,6 +51,11 @@ namespace yaesu
             }
 
             return null;
+        }
+
+        public String getFolderPath()
+        {
+            return di.ToString();
         }
     }
 }
