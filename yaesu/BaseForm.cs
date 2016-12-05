@@ -62,6 +62,13 @@ namespace yaesu
             this.ClientSize = Properties.Settings.Default.MyClientSize;
 
             explorerTreeView.UIInit();
+
+            mbTrackBar.Minimum = 0;
+            mbTrackBar.Maximum = 100;
+
+            mbTrackBar.Value = 50;
+            mbTrackBar.TickFrequency = 10;
+            mbTrackBar.SmallChange = 10;
         }
 
         private void setFileToRichTextBox(FileInfo fileInfo)
@@ -130,6 +137,7 @@ namespace yaesu
             updateIndicaterLavel.Visible = true;
 
         }
+
 
         private void searchTextBox_Leave(object sender, EventArgs e)
         {
@@ -382,9 +390,30 @@ namespace yaesu
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void editRichTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+        }
 
+        private void mbTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            if(markdownBrowser != null && markdownBrowser.Document != null)
+            {
+                // ズームを取得
+                var w = (mshtml.IHTMLWindow2)markdownBrowser.Document.Window.DomWindow;
+                var s = (mshtml.IHTMLScreen2)w.screen;
+                int zoom = s.deviceXDPI * 100 / 96;
+
+                // ズーム率を設定
+                if(mbTrackBar.Value < 50)
+                {
+                    // 縮小
+                    zoom = 100 - (50 - mbTrackBar.Value);
+                } else
+                {
+                    zoom = mbTrackBar.Value * 2;
+                }
+                ((SHDocVw.WebBrowser)markdownBrowser.ActiveXInstance).ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
+            }
         }
     }
 
