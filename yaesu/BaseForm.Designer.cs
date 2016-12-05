@@ -437,6 +437,7 @@ namespace yaesu
             this.newNoteButton.Size = new System.Drawing.Size(30, 28);
             this.newNoteButton.TabIndex = 3;
             this.newNoteButton.UseVisualStyleBackColor = true;
+            this.newNoteButton.Click += new System.EventHandler(this.newNoteButton_Click);
             // 
             // radioButton3
             // 
