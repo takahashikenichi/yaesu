@@ -71,6 +71,7 @@ namespace yaesu
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.iconImageList = new System.Windows.Forms.ImageList(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.nonGitCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -497,11 +498,26 @@ namespace yaesu
             this.iconImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // nonGitCheckBox
+            // 
+            this.nonGitCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.nonGitCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.nonGitCheckBox.AutoSize = true;
+            this.nonGitCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nonGitCheckBox.Location = new System.Drawing.Point(1110, 742);
+            this.nonGitCheckBox.Name = "nonGitCheckBox";
+            this.nonGitCheckBox.Size = new System.Drawing.Size(48, 22);
+            this.nonGitCheckBox.TabIndex = 9;
+            this.nonGitCheckBox.Text = "nonGit";
+            this.nonGitCheckBox.UseVisualStyleBackColor = true;
+            this.nonGitCheckBox.CheckedChanged += new System.EventHandler(this.nonGitCheckBox_CheckedChanged);
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.nonGitCheckBox);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -580,6 +596,7 @@ namespace yaesu
         private ShellNamespace.ExplorerTreeView explorerTreeView;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TrackBar mbTrackBar;
+        private CheckBox nonGitCheckBox;
     }
 
 }

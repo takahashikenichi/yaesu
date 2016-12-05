@@ -20,6 +20,7 @@ namespace yaesu
         private FileInfo fileInfo; // ローカルファイルシステム
         Point scrollpos;
         Boolean isOpenNewFile = false;
+        Boolean nonGit = false;
 
         public BaseForm()
         {
@@ -132,7 +133,13 @@ namespace yaesu
             isOpenNewFile = false;
 
             //指定されたマニフェストリソースを読み込む
-            markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+            if(nonGit)
+            {
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+            } else
+            {
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+            }
 
             updateIndicaterLavel.Visible = true;
 
@@ -414,6 +421,34 @@ namespace yaesu
                 }
                 ((SHDocVw.WebBrowser)markdownBrowser.ActiveXInstance).ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
             }
+        }
+
+        private void nonGitCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            nonGit = nonGitCheckBox.Checked;
+
+            // イケてないが、別のところのコピペ
+            // 現在のスクロール位置を取得
+            if (markdownBrowser.Document != null && !isOpenNewFile)
+            {
+                IHTMLDocument3 doc3 = (IHTMLDocument3)markdownBrowser.Document.DomDocument;
+                IHTMLElement2 elm = (IHTMLElement2)doc3.documentElement;
+                scrollpos = new Point(elm.scrollLeft, elm.scrollTop);
+            }
+            else
+            {
+                scrollpos = new Point(0, 0);
+            }
+            //指定されたマニフェストリソースを読み込む
+            if (nonGit)
+            {
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+            }
+            else
+            {
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+            }
+
         }
     }
 

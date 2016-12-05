@@ -157,6 +157,22 @@ namespace yaesu.Properties {
         }
         
         /// <summary>
+        ///   &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///  &lt;head&gt;
+        ///      &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///      &lt;title&gt;&lt;/title&gt;
+        ///      &lt;style&gt;.markdown-preview:not([data-use-github-style]) { padding: 2em; font-size: 1.2em; color: rgb(56, 58, 66); overflow: auto; background-color: rgb(250, 250, 250); }
+        ///.markdown-preview:not([data-use-github-style]) &gt; :first-child { margin-top: 0px; }
+        ///.markdown-preview:not([data-use-github-style]) h1, .markdown-preview:not([data-use-github-style]) h2, .markdown-preview:not([data-use-github-style]) h3, .markdown- [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string htmlHeder_nonGit {
+            get {
+                return ResourceManager.GetString("htmlHeder_nonGit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
         internal static System.Drawing.Bitmap pencil_icon_16 {
