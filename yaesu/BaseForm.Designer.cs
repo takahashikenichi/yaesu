@@ -50,11 +50,12 @@ namespace yaesu
             this.表示VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ツールTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.markdownBrowser = new System.Windows.Forms.WebBrowser();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.FileNameLabel = new System.Windows.Forms.Label();
             this.updateIndicaterLavel = new System.Windows.Forms.Label();
             this.Label_Created = new System.Windows.Forms.Label();
             this.editRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.markdownBrowser = new System.Windows.Forms.WebBrowser();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.explorerTreeView = new ShellNamespace.ExplorerTreeView(this.components);
@@ -71,7 +72,7 @@ namespace yaesu
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.iconImageList = new System.Windows.Forms.ImageList(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.nonGitCheckBox = new System.Windows.Forms.CheckBox();
+            this.ghmdCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -215,16 +216,6 @@ namespace yaesu
             this.ヘルプHToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.ヘルプHToolStripMenuItem.Text = "ヘルプ(H)";
             // 
-            // markdownBrowser
-            // 
-            this.markdownBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.markdownBrowser.Location = new System.Drawing.Point(0, 0);
-            this.markdownBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.markdownBrowser.Name = "markdownBrowser";
-            this.markdownBrowser.Size = new System.Drawing.Size(353, 672);
-            this.markdownBrowser.TabIndex = 6;
-            this.markdownBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.markdownBrowser_DocumentCompleted);
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -235,6 +226,7 @@ namespace yaesu
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.FileNameLabel);
             this.splitContainer1.Panel1.Controls.Add(this.updateIndicaterLavel);
             this.splitContainer1.Panel1.Controls.Add(this.Label_Created);
             this.splitContainer1.Panel1.Controls.Add(this.editRichTextBox);
@@ -246,6 +238,15 @@ namespace yaesu
             this.splitContainer1.SplitterDistance = 340;
             this.splitContainer1.TabIndex = 7;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            // 
+            // FileNameLabel
+            // 
+            this.FileNameLabel.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.FileNameLabel.Location = new System.Drawing.Point(-1, 2);
+            this.FileNameLabel.Name = "FileNameLabel";
+            this.FileNameLabel.Size = new System.Drawing.Size(338, 36);
+            this.FileNameLabel.TabIndex = 2;
+            this.FileNameLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // updateIndicaterLavel
             // 
@@ -290,6 +291,16 @@ namespace yaesu
             this.editRichTextBox.Text = "";
             this.editRichTextBox.TextChanged += new System.EventHandler(this.editRichTextBox_TextChanged);
             this.editRichTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editRichTextBox_KeyDown);
+            // 
+            // markdownBrowser
+            // 
+            this.markdownBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.markdownBrowser.Location = new System.Drawing.Point(0, 0);
+            this.markdownBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.markdownBrowser.Name = "markdownBrowser";
+            this.markdownBrowser.Size = new System.Drawing.Size(353, 672);
+            this.markdownBrowser.TabIndex = 6;
+            this.markdownBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.markdownBrowser_DocumentCompleted);
             // 
             // splitContainer2
             // 
@@ -364,14 +375,12 @@ namespace yaesu
             // 
             this.radioButton4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton4.Checked = true;
             this.radioButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButton4.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.radioButton4.Location = new System.Drawing.Point(98, 1);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(75, 28);
             this.radioButton4.TabIndex = 10;
-            this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Tags";
             this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton4.UseVisualStyleBackColor = true;
@@ -380,12 +389,14 @@ namespace yaesu
             // 
             this.radioButton5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton5.Checked = true;
             this.radioButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButton5.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.radioButton5.Location = new System.Drawing.Point(24, 1);
             this.radioButton5.Name = "radioButton5";
             this.radioButton5.Size = new System.Drawing.Size(75, 28);
             this.radioButton5.TabIndex = 11;
+            this.radioButton5.TabStop = true;
             this.radioButton5.Text = "Folder";
             this.radioButton5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton5.UseVisualStyleBackColor = true;
@@ -498,26 +509,27 @@ namespace yaesu
             this.iconImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // nonGitCheckBox
+            // ghmdCheckBox
             // 
-            this.nonGitCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.nonGitCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.nonGitCheckBox.AutoSize = true;
-            this.nonGitCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nonGitCheckBox.Location = new System.Drawing.Point(1110, 742);
-            this.nonGitCheckBox.Name = "nonGitCheckBox";
-            this.nonGitCheckBox.Size = new System.Drawing.Size(48, 22);
-            this.nonGitCheckBox.TabIndex = 9;
-            this.nonGitCheckBox.Text = "nonGit";
-            this.nonGitCheckBox.UseVisualStyleBackColor = true;
-            this.nonGitCheckBox.CheckedChanged += new System.EventHandler(this.nonGitCheckBox_CheckedChanged);
+            this.ghmdCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ghmdCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ghmdCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ghmdCheckBox.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ghmdCheckBox.Location = new System.Drawing.Point(1030, 739);
+            this.ghmdCheckBox.Name = "ghmdCheckBox";
+            this.ghmdCheckBox.Size = new System.Drawing.Size(128, 22);
+            this.ghmdCheckBox.TabIndex = 9;
+            this.ghmdCheckBox.Text = "GitHub Markdown";
+            this.ghmdCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ghmdCheckBox.UseVisualStyleBackColor = true;
+            this.ghmdCheckBox.CheckedChanged += new System.EventHandler(this.nonGitCheckBox_CheckedChanged);
             // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
-            this.Controls.Add(this.nonGitCheckBox);
+            this.Controls.Add(this.ghmdCheckBox);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -596,7 +608,8 @@ namespace yaesu
         private ShellNamespace.ExplorerTreeView explorerTreeView;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TrackBar mbTrackBar;
-        private CheckBox nonGitCheckBox;
+        private CheckBox ghmdCheckBox;
+        private Label FileNameLabel;
     }
 
 }

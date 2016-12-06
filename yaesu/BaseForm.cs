@@ -20,7 +20,7 @@ namespace yaesu
         private FileInfo fileInfo; // ローカルファイルシステム
         Point scrollpos;
         Boolean isOpenNewFile = false;
-        Boolean nonGit = false;
+        Boolean isGitHubMarkdown = false;
 
         public BaseForm()
         {
@@ -133,12 +133,13 @@ namespace yaesu
             isOpenNewFile = false;
 
             //指定されたマニフェストリソースを読み込む
-            if(nonGit)
-            {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
-            } else
+            if(isGitHubMarkdown)
             {
                 markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+            }
+            else
+            {
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
             }
 
             updateIndicaterLavel.Visible = true;
@@ -241,6 +242,7 @@ namespace yaesu
                     fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
 
                     setFileToRichTextBox(fileInfo);
+                    FileNameLabel.Text = fileInfo.Name;
                 }
             }
         }
@@ -425,7 +427,7 @@ namespace yaesu
 
         private void nonGitCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            nonGit = nonGitCheckBox.Checked;
+            isGitHubMarkdown = ghmdCheckBox.Checked;
 
             // イケてないが、別のところのコピペ
             // 現在のスクロール位置を取得
@@ -440,13 +442,13 @@ namespace yaesu
                 scrollpos = new Point(0, 0);
             }
             //指定されたマニフェストリソースを読み込む
-            if (nonGit)
+            if (isGitHubMarkdown)
             {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
             }
             else
             {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
             }
 
         }
