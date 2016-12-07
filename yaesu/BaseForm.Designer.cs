@@ -55,10 +55,8 @@ namespace yaesu
             this.updateIndicaterLavel = new System.Windows.Forms.Label();
             this.Label_Created = new System.Windows.Forms.Label();
             this.editRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.markdownBrowser = new System.Windows.Forms.WebBrowser();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.explorerTreeView = new ShellNamespace.ExplorerTreeView(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
@@ -73,6 +71,8 @@ namespace yaesu
             this.iconImageList = new System.Windows.Forms.ImageList(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.ghmdCheckBox = new System.Windows.Forms.CheckBox();
+            this.explorerTreeView = new ShellNamespace.ExplorerTreeView(this.components);
+            this.markdownBrowser = new System.Windows.Forms.WebBrowser();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -292,16 +292,6 @@ namespace yaesu
             this.editRichTextBox.TextChanged += new System.EventHandler(this.editRichTextBox_TextChanged);
             this.editRichTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editRichTextBox_KeyDown);
             // 
-            // markdownBrowser
-            // 
-            this.markdownBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.markdownBrowser.Location = new System.Drawing.Point(0, 0);
-            this.markdownBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.markdownBrowser.Name = "markdownBrowser";
-            this.markdownBrowser.Size = new System.Drawing.Size(353, 672);
-            this.markdownBrowser.TabIndex = 6;
-            this.markdownBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.markdownBrowser_DocumentCompleted);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -345,19 +335,6 @@ namespace yaesu
             this.splitContainer3.Size = new System.Drawing.Size(483, 709);
             this.splitContainer3.SplitterDistance = 200;
             this.splitContainer3.TabIndex = 3;
-            // 
-            // explorerTreeView
-            // 
-            this.explorerTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.explorerTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.explorerTreeView.LinkedExplorerListView = null;
-            this.explorerTreeView.Location = new System.Drawing.Point(0, 37);
-            this.explorerTreeView.Name = "explorerTreeView";
-            this.explorerTreeView.Size = new System.Drawing.Size(201, 672);
-            this.explorerTreeView.TabIndex = 7;
-            this.explorerTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.explorerTreeView_AfterSelect);
             // 
             // panel1
             // 
@@ -523,6 +500,29 @@ namespace yaesu
             this.ghmdCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ghmdCheckBox.UseVisualStyleBackColor = true;
             this.ghmdCheckBox.CheckedChanged += new System.EventHandler(this.nonGitCheckBox_CheckedChanged);
+            // 
+            // explorerTreeView
+            // 
+            this.explorerTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.explorerTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.explorerTreeView.LinkedExplorerListView = null;
+            this.explorerTreeView.Location = new System.Drawing.Point(0, 37);
+            this.explorerTreeView.Name = "explorerTreeView";
+            this.explorerTreeView.Size = new System.Drawing.Size(201, 672);
+            this.explorerTreeView.TabIndex = 7;
+            this.explorerTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.explorerTreeView_AfterSelect);
+            // 
+            // markdownBrowser
+            // 
+            this.markdownBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.markdownBrowser.Location = new System.Drawing.Point(0, 0);
+            this.markdownBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.markdownBrowser.Name = "markdownBrowser";
+            this.markdownBrowser.Size = new System.Drawing.Size(353, 672);
+            this.markdownBrowser.TabIndex = 6;
+            this.markdownBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.markdownBrowser_DocumentCompleted);
             // 
             // BaseForm
             // 
