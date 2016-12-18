@@ -64,13 +64,16 @@ namespace yaesu
 
             explorerTreeView.UIInit();
 
+            // トラックバーの設定
             mbTrackBar.Minimum = 0;
             mbTrackBar.Maximum = 100;
 
             mbTrackBar.Value = 50;
             mbTrackBar.TickFrequency = 10;
             mbTrackBar.SmallChange = 10;
+
         }
+
 
         private void setFileToRichTextBox(FileInfo fileInfo)
         {
@@ -297,6 +300,59 @@ namespace yaesu
         {
             Properties.Settings.Default.MyClientSize = this.ClientSize;
             Properties.Settings.Default.Save();
+
+            String fileName = "";
+            if (updateIndicaterLavel.Visible == true)
+            {
+                // ファイルに変更がある
+                // メッセージボックスを表示する
+                DialogResult result = MessageBox.Show("ファイルを上書きしますか？",
+                    "質問",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2);
+
+                //何が選択されたか調べる
+                if (result == DialogResult.Yes)
+                {
+                    //「はい」が選択された時
+                    StreamWriter sw = fileInfo.CreateText();
+
+                    // ファイルに書き込む
+                    sw.Write(editRichTextBox.Text);
+                    sw.Close();
+
+                    updateIndicaterLavel.Visible = false;
+
+                    // ファイル名を取得する
+                    fileName = fileListView.SelectedItems[0].Tex
+                        ;
+
+                    // ファイル情報を取得する
+                    fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+
+                    setFileToRichTextBox(fileInfo);
+                }
+
+                else if (result == DialogResult.No)
+                {
+                    //「いいえ」が選択された時
+                    if (fileListView.SelectedItems.Count > 0)
+                    {
+                        // ファイル名を取得する
+                        fileName = fileListView.SelectedItems[0].Text;
+
+                        // ファイル情報を取得する
+                        fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+
+                        setFileToRichTextBox(fileInfo);
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    //「キャンセル」が選択された時 なにもしない
+                }
+            }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -327,36 +383,6 @@ namespace yaesu
                         fileListView = localFileSystem.setListViewFromFiles(fileListView);*/
         }
 
-        private void checkToUserBeforeClose()
-        {
-            if (updateIndicaterLavel.Visible == true)
-            {
-                // ファイルに変更がある
-                //メッセージボックスを表示する
-                DialogResult result = MessageBox.Show("ファイルを上書きしますか？",
-                    "質問",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button2);
-
-                //何が選択されたか調べる
-                if (result == DialogResult.Yes)
-                {
-                    //「はい」が選択された時
-                    Console.WriteLine("「はい」が選択されました");
-                }
-                else if (result == DialogResult.No)
-                {
-                    //「いいえ」が選択された時
-                    Console.WriteLine("「いいえ」が選択されました");
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    //「キャンセル」が選択された時
-                    Console.WriteLine("「キャンセル」が選択されました");
-                }
-            }
-        }
 
         private void newNoteButton_Click(object sender, EventArgs e)
         {
