@@ -325,8 +325,7 @@ namespace yaesu
                     updateIndicaterLavel.Visible = false;
 
                     // ファイル名を取得する
-                    fileName = fileListView.SelectedItems[0].Tex
-                        ;
+                    fileName = fileListView.SelectedItems[0].Text;
 
                     // ファイル情報を取得する
                     fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
