@@ -72,8 +72,17 @@ namespace yaesu
             mbTrackBar.TickFrequency = 10;
             mbTrackBar.SmallChange = 10;
 
+            //Activatedイベントハンドラの追加
+            this.Activated += new EventHandler(BaseFrom_Activated);
         }
 
+        private void BaseFrom_Activated(object sender, EventArgs e)
+        {
+            // アクティブになった際に呼ばれる
+
+            // リストビューを更新する
+            fileListView = localFileSystem.setListViewFromFiles(fileListView);
+        }
 
         private void setFileToRichTextBox(FileInfo fileInfo)
         {
@@ -426,7 +435,7 @@ namespace yaesu
                     // 呼ばなくても using を抜けた時点で Dispose メソッドが呼び出される
                     fs.Close();
                 }
-                // ファイルを列挙し直す
+                // リストビューを更新する
                 fileListView = localFileSystem.setListViewFromFiles(fileListView);
 
                 // ファイル情報を取得する
