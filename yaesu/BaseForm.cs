@@ -86,6 +86,8 @@ namespace yaesu
 
             Label_Created.Text ="Modified: " + fileInfo.LastWriteTime.ToString();
             updateIndicaterLavel.Visible = false;
+            FileNameLabel.Text = fileInfo.Name;
+
         }
 
         private void 開くOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -245,7 +247,6 @@ namespace yaesu
                     fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
 
                     setFileToRichTextBox(fileInfo);
-                    FileNameLabel.Text = fileInfo.Name;
                 }
             }
         }
@@ -390,7 +391,12 @@ namespace yaesu
 
             //はじめのファイル名を指定する
             //はじめに「ファイル名」で表示される文字列を指定する
-            sfd.FileName = "新しいファイル.md";
+            // 現在の日付を取得する
+            DateTime dtToday = DateTime.Today;
+            // 取得した日付を表示する
+            
+
+            sfd.FileName = DateTime.Now.ToString("yyyyMMdd") + ".md";
             //はじめに表示されるフォルダを指定する            
             sfd.InitialDirectory = localFileSystem.getFolderPath();
             //[ファイルの種類]に表示される選択肢を指定する
@@ -420,7 +426,14 @@ namespace yaesu
                     // 呼ばなくても using を抜けた時点で Dispose メソッドが呼び出される
                     fs.Close();
                 }
+                // ファイルを列挙し直す
                 fileListView = localFileSystem.setListViewFromFiles(fileListView);
+
+                // ファイル情報を取得する
+                fileInfo = localFileSystem.getFileInfoFromListView(fileListView, System.IO.Path.GetFileName(sfd.FileName));
+
+                // 新規作成したファイルを読み込む
+                setFileToRichTextBox(fileInfo);
             }
         }
 
