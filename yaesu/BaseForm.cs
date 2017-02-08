@@ -384,12 +384,13 @@ namespace yaesu
 
         private void explorerTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            MessageBox.Show(explorerTreeView.SelectedNode.FullPath);
-            /*
-                        // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
-                        localFileSystem = new LocalFileSystem(explorerTreeView.SelectedNode.FullPath);
-                        fileListView.Clear();
-                        fileListView = localFileSystem.setListViewFromFiles(fileListView);*/
+            // 選択されたアイテムのフルパスを取得する
+            String fullPath = ((ShellNamespace.ShellItem)explorerTreeView.SelectedNode.Tag).Path;
+
+            // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
+            localFileSystem = new LocalFileSystem(fullPath);
+            fileListView.Clear();
+            fileListView = localFileSystem.setListViewFromFiles(fileListView);
         }
 
 
