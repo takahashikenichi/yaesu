@@ -194,7 +194,6 @@ namespace yaesu
 
         private void fileListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int newIndex = 0;
             String fileName = "";
             String newFileName = "";
 
