@@ -399,6 +399,7 @@ namespace yaesu
             this.fileListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.fileListView.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.fileListView.GridLines = true;
+            this.fileListView.HideSelection = false;
             this.fileListView.Location = new System.Drawing.Point(3, 37);
             this.fileListView.Name = "fileListView";
             this.fileListView.Size = new System.Drawing.Size(273, 675);
@@ -507,6 +508,7 @@ namespace yaesu
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.explorerTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.explorerTreeView.HideSelection = false;
             this.explorerTreeView.LinkedExplorerListView = null;
             this.explorerTreeView.Location = new System.Drawing.Point(0, 37);
             this.explorerTreeView.Name = "explorerTreeView";

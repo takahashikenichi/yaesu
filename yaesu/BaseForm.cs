@@ -81,7 +81,10 @@ namespace yaesu
             // アクティブになった際に呼ばれる
 
             // リストビューを更新する
-            fileListView = localFileSystem.setListViewFromFiles(fileListView);
+            if(localFileSystem != null)
+            {
+                fileListView = localFileSystem.setListViewFromFiles(fileListView);
+            }
         }
 
         private void setFileToRichTextBox(FileInfo fileInfo)
@@ -191,11 +194,15 @@ namespace yaesu
 
         private void fileListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int idx = 0;
+            int newIndex = 0;
             String fileName = "";
+            String newFileName = "";
 
             if (fileListView.SelectedItems.Count > 0)
             {
+                // ダイアログが出るとIndexがリセットされてしまうので、先に変更先ファイル名を取得する
+                newFileName = fileListView.SelectedItems[0].Text;
+
                 if (updateIndicaterLavel.Visible == true)
                 {
                     // ファイルに変更がある
@@ -217,12 +224,9 @@ namespace yaesu
                         sw.Close();
 
                         updateIndicaterLavel.Visible = false;
-
-                        // ファイル名を取得する
-                        fileName = fileListView.SelectedItems[0].Text;
-
-                        // ファイル情報を取得する
-                        fileInfo = localFileSystem.getFileInfoFromListView(fileListView, fileName);
+                    
+                        // 予め取得していた変更先ファイル名を使ってファイル情報を取得する
+                        fileInfo = localFileSystem.getFileInfoFromListView(fileListView, newFileName);
 
                         setFileToRichTextBox(fileInfo);
                     }
