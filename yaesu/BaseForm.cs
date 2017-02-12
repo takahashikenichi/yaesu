@@ -384,6 +384,9 @@ namespace yaesu
                     //「キャンセル」が選択された時 なにもしない
                 }
             }
+            // レジストリを行儀よく消す
+            regkey.DeleteValue(process_name);
+            regkey.DeleteValue(process_dbg_name);
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
