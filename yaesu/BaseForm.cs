@@ -317,7 +317,7 @@ namespace yaesu
             if (fbd.ShowDialog(this) == DialogResult.OK)
             {
                 //選択されたフォルダを表示する
-                Console.WriteLine(fbd.SelectedPath);
+//                Console.WriteLine(fbd.SelectedPath);
                 Properties.Settings.Default.DefaultFolderPath = fbd.SelectedPath;
 
                 // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
@@ -412,6 +412,8 @@ namespace yaesu
             // 選択されたアイテムのフルパスを取得する
             String fullPath = ((ShellNamespace.ShellItem)explorerTreeView.SelectedNode.Tag).Path;
 
+            Properties.Settings.Default.DefaultFolderPath = fullPath;
+        
             // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
             localFileSystem = new LocalFileSystem(fullPath);
             fileListView.Clear();
