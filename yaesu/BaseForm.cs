@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Markdig;
 
 namespace yaesu
 {
@@ -21,6 +22,11 @@ namespace yaesu
         Point scrollpos;
         Boolean isOpenNewFile = false;
         Boolean isGitHubMarkdown = false;
+
+        Microsoft.Win32.RegistryKey regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(FEATURE_BROWSER_EMULATION);
+        const string FEATURE_BROWSER_EMULATION = @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
+        string process_name = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe";
+        string process_dbg_name = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".vshost.exe";
 
         public BaseForm()
         {
@@ -35,6 +41,9 @@ namespace yaesu
             // editRichTextBoxの行間を詰めて、フォントを合わせる
             editRichTextBox.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
 
+            // IEを最新バージョンで動かす
+            regkey.SetValue(process_name, 11001, Microsoft.Win32.RegistryValueKind.DWord);
+            regkey.SetValue(process_dbg_name, 11001, Microsoft.Win32.RegistryValueKind.DWord);
         }
 
         private void BaseForm_Load(object sender, EventArgs e)
@@ -149,20 +158,30 @@ namespace yaesu
             }
             isOpenNewFile = false;
 
+            // マークダウンをアップデートする
+            updateMarkdownBrowser();
+
+            updateIndicaterLavel.Visible = true;
+        }
+
+        private void updateMarkdownBrowser()
+        {
+            string documentText;
             //指定されたマニフェストリソースを読み込む
-            if(isGitHubMarkdown)
+            if (isGitHubMarkdown)
             {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+                // CommonMark.NETからMarkdigに変更
+                var pipeline = new Markdig.MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+                documentText = Properties.Resources.htmlHeder + Markdig.Markdown.ToHtml(editRichTextBox.Text, pipeline) + Properties.Resources.htmlFooter;
             }
             else
             {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
+                // CommonMark.NETからMarkdigに変更
+                var pipeline = new Markdig.MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+                documentText = Properties.Resources.htmlHeder_nonGit + Markdig.Markdown.ToHtml(editRichTextBox.Text, pipeline) + Properties.Resources.htmlFooter;
             }
-
-            updateIndicaterLavel.Visible = true;
-
+            markdownBrowser.DocumentText = documentText;
         }
-
 
         private void searchTextBox_Leave(object sender, EventArgs e)
         {
@@ -492,16 +511,9 @@ namespace yaesu
             {
                 scrollpos = new Point(0, 0);
             }
-            //指定されたマニフェストリソースを読み込む
-            if (isGitHubMarkdown)
-            {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
-            }
-            else
-            {
-                markdownBrowser.DocumentText = Properties.Resources.htmlHeder_nonGit + CommonMark.CommonMarkConverter.Convert(editRichTextBox.Text) + Properties.Resources.htmlFooter;
-            }
 
+            // マークダウンをアップデートする
+            updateMarkdownBrowser();
         }
     }
 
