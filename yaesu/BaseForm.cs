@@ -27,6 +27,7 @@ namespace yaesu
         const string FEATURE_BROWSER_EMULATION = @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
         string process_name = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe";
         string process_dbg_name = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".vshost.exe";
+        string hiddenHtmlFileName = ".md.html";
 
         public BaseForm()
         {
@@ -57,7 +58,7 @@ namespace yaesu
             // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
             if (Properties.Settings.Default.DefaultFolderPath != "")
             {
-                localFileSystem = new LocalFileSystem(Properties.Settings.Default.DefaultFolderPath);
+                localFileSystem = new LocalFileSystem(Properties.Settings.Default.DefaultFolderPath, hiddenHtmlFileName);
 
                 fileListView = localFileSystem.setListViewFromFiles(fileListView);
 
@@ -180,7 +181,33 @@ namespace yaesu
                 var pipeline = new Markdig.MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
                 documentText = Properties.Resources.htmlHeder_nonGit + Markdig.Markdown.ToHtml(editRichTextBox.Text, pipeline) + Properties.Resources.htmlFooter;
             }
-            markdownBrowser.DocumentText = documentText;
+
+            // ローカルファイルを作成
+            string hiddenFilePath = fileInfo.DirectoryName + "\\" + hiddenHtmlFileName;
+            FileInfo fi = new FileInfo(hiddenFilePath);
+
+            if(fi.Exists)
+            {
+                // 隠しステータスを変更
+                fi.Attributes &= ~FileAttributes.Hidden;
+            }
+
+            using (FileStream fs = File.Create(hiddenFilePath))
+            {
+                fi.Attributes |= FileAttributes.Hidden;
+                StreamWriter sw = new StreamWriter(fs);
+
+                // ファイルに書き込む
+                sw.Write(documentText);
+                sw.Close();
+
+                // ファイルストリームを閉じて、変更を確定させる
+                // 呼ばなくても using を抜けた時点で Dispose メソッドが呼び出される
+                fs.Close();
+            }
+
+            //markdownBrowser.DocumentText = documentText;
+            markdownBrowser.Navigate(hiddenFilePath);
         }
 
         private void searchTextBox_Leave(object sender, EventArgs e)
@@ -321,7 +348,7 @@ namespace yaesu
                 Properties.Settings.Default.DefaultFolderPath = fbd.SelectedPath;
 
                 // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
-                localFileSystem = new LocalFileSystem(fbd.SelectedPath);
+                localFileSystem = new LocalFileSystem(fbd.SelectedPath, hiddenHtmlFileName);
                 fileListView.Clear();
                 fileListView = localFileSystem.setListViewFromFiles(fileListView);
 
@@ -415,7 +442,7 @@ namespace yaesu
             Properties.Settings.Default.DefaultFolderPath = fullPath;
         
             // ListBoxにファイル一覧を入れるためにローカルファイルシステムを作成
-            localFileSystem = new LocalFileSystem(fullPath);
+            localFileSystem = new LocalFileSystem(fullPath, hiddenHtmlFileName);
             fileListView.Clear();
             fileListView = localFileSystem.setListViewFromFiles(fileListView);
         }

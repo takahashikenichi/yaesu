@@ -12,11 +12,14 @@ namespace yaesu
     {
         System.IO.DirectoryInfo di;
         IEnumerable<FileInfo> files;
+        string _hiddenFileName;
 
         // コンストラクタ
-        public LocalFileSystem(string filePath)
+        public LocalFileSystem(string filePath, string hiddenFileName)
         {
             di = new DirectoryInfo(filePath);
+            _hiddenFileName = hiddenFileName;
+
         }
 
         public ListView setListViewFromFiles(ListView listView)
@@ -31,7 +34,10 @@ namespace yaesu
             //ファイルを列挙する
             foreach (FileInfo f in files)
             {
-                listView.Items.Add(f.Name);
+                if(0 != f.Name.CompareTo(_hiddenFileName))
+                {
+                    listView.Items.Add(f.Name);
+                }
             }
 
 
