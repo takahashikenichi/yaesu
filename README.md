@@ -2,26 +2,18 @@ Yaesu
 ====
 Yaesu is my own project to produce the easy Markdown-Text editor which can be used at my company.
 
-Overview
-
 ## Description
+By the reason of security, a big Japanese company has a lot of access restrictions to defend a lot of confidential document from outside attack.　My company also has. Evernote, Dropbox and GoogleDrive are prohibited at my company.　If I couldn't use those tools, I make　it.
 
 ## Demo
+TBD.
 
 ## VS. 
-
-## Requirement
-
-## Usage
-
-## Install
-
-## Contribution
+Yaesu is like Atom editor, but workｓ lightly.
+Yaesu is like Evernote, but works without outside servers.
 
 ## Licence
-
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
 
 ## Author
-
-[tcnksm](https://github.com/tcnksm)
+[takahashikenichi](https://github.com/takahashikenichi)
